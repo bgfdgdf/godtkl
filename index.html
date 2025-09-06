@@ -162,7 +162,6 @@
             background: #43b581;
             border-radius: 50%;
             animation: statusBlink 2s infinite;
-            display: none;
         }
 
         @keyframes statusBlink {
@@ -177,27 +176,36 @@
         }
 
         .btn {
-            padding: 16px 20px;
+            padding: 18px 24px;
             border: none;
-            border-radius: 8px;
-            font-size: 1rem;
+            border-radius: 12px;
+            font-size: 1.05rem;
             font-weight: 600;
             cursor: pointer;
             text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            gap: 12px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
             animation: buttonSlide 0.8s ease-out;
-            border: 1px solid transparent;
+            border: 2px solid transparent;
+            background-size: 200% 200%;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #4A5568 0%, #2D3748 25%, #718096 50%, #4A5568 75%, #A0AEC0 100%);
+            color: white;
+            border: 2px solid rgba(74, 85, 104, 0.4);
+            box-shadow: 0 8px 32px rgba(74, 85, 104, 0.3);
+            background-size: 300% 300%;
+            animation: gradientShift 5s ease infinite;
         }
 
         .btn:nth-child(1) { animation-delay: 0.6s; animation-fill-mode: both; }
         .btn:nth-child(2) { animation-delay: 0.8s; animation-fill-mode: both; }
         .btn:nth-child(3) { animation-delay: 1s; animation-fill-mode: both; }
+        .btn:nth-child(4) { animation-delay: 1.2s; animation-fill-mode: both; }
 
         @keyframes buttonSlide {
             from {
@@ -213,63 +221,124 @@
         .btn::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.6s;
+            top: -50%;
+            left: -200%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(60deg, 
+                transparent, 
+                transparent,
+                rgba(255,255,255,0.05), 
+                rgba(255,255,255,0.15), 
+                rgba(255,255,255,0.25),
+                rgba(255,255,255,0.4),
+                rgba(255,255,255,0.25),
+                rgba(255,255,255,0.15), 
+                rgba(255,255,255,0.05), 
+                transparent,
+                transparent);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 3;
+            transform: skewX(-30deg) rotate(10deg);
+            filter: blur(0.5px);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(ellipse at 30% 30%, 
+                rgba(255,255,255,0.2) 0%, 
+                rgba(255,255,255,0.12) 20%, 
+                rgba(255,255,255,0.08) 40%,
+                rgba(255,255,255,0.04) 60%,
+                rgba(255,255,255,0.02) 80%,
+                transparent 100%);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 2;
+            transform: scale(0.8) rotate(-5deg);
         }
 
         .btn:hover::before {
             left: 100%;
+            transform: skewX(-30deg) rotate(15deg) scale(1.1);
         }
 
-        .btn-twitch {
-            background: linear-gradient(135deg, #9146FF, #772CE8, #9146FF, #A855F7);
-            color: white;
-            border: 2px solid rgba(145, 70, 255, 0.4);
-            box-shadow: 0 8px 32px rgba(145, 70, 255, 0.3);
+        .btn:hover::after {
+            opacity: 1;
+            transform: scale(1.3) rotate(10deg);
+            background: radial-gradient(ellipse at 70% 70%, 
+                rgba(255,255,255,0.25) 0%, 
+                rgba(255,255,255,0.15) 30%, 
+                rgba(255,255,255,0.08) 60%,
+                transparent 100%);
         }
 
-        .btn-twitch:hover {
-            background-position: right center;
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(145, 70, 255, 0.5);
-            border-color: rgba(145, 70, 255, 0.8);
+        .btn span {
+            position: relative;
+            z-index: 4;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: inline-block;
         }
 
-        .btn-livepix {
-            background: linear-gradient(135deg, #FF6B6B, #FF8E53, #FF6B6B, #FF4757);
-            color: white;
-            border: 2px solid rgba(255, 107, 107, 0.4);
-            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
-        }
-
-        .btn-livepix:hover {
-            background-position: right center;
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.5);
-            border-color: rgba(255, 107, 107, 0.8);
-        }
-
-        .btn-discord {
-            background: linear-gradient(135deg, #5865F2, #4752C4, #5865F2, #7983F5);
-            color: white;
-            cursor: default;
-            border: 2px solid rgba(88, 101, 242, 0.4);
-            box-shadow: 0 8px 32px rgba(88, 101, 242, 0.3);
-        }
-
-        .btn-discord:hover {
-            background-position: right center;
-            transform: translateY(-2px) scale(1.01);
-            box-shadow: 0 12px 35px rgba(88, 101, 242, 0.5);
-            border-color: rgba(88, 101, 242, 0.8);
+        .btn:hover span {
+            transform: translateY(-4px) scale(1.1) rotateX(5deg);
+            text-shadow: 0 8px 25px rgba(0,0,0,0.5), 0 4px 12px rgba(255,255,255,0.2);
         }
 
         .btn-icon {
-            font-size: 1.2rem;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: inline-block;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .btn:hover .btn-icon {
+            transform: translateY(-6px) scale(1.4) rotateZ(25deg) rotateY(20deg) rotateX(10deg);
+            filter: drop-shadow(0 12px 20px rgba(0,0,0,0.6)) drop-shadow(0 0 15px rgba(255,255,255,0.3));
+            animation: iconFloat 2s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(-6px) scale(1.4) rotateZ(25deg) rotateY(20deg) rotateX(10deg); }
+            50% { transform: translateY(-8px) scale(1.45) rotateZ(30deg) rotateY(25deg) rotateX(15deg); }
+        }
+
+        .btn:active {
+            transform: translateY(-2px) scale(0.96) rotateX(2deg);
+            transition: all 0.1s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-8px) scale(1.06) rotateX(12deg) rotateY(3deg) rotateZ(1deg);
+            box-shadow: 0 35px 80px rgba(74, 85, 104, 0.6), 
+                        0 15px 35px rgba(255,255,255,0.1),
+                        0 0 0 1px rgba(74, 85, 104, 0.5),
+                        inset 0 1px 0 rgba(255,255,255,0.2);
+            border-color: rgba(74, 85, 104, 0.8);
+            animation-duration: 2s;
+            animation: buttonPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes buttonPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.1); }
+            50% { box-shadow: 0 0 0 20px rgba(255,255,255,0); }
+        }
+
+        .btn-discord {
+            cursor: default !important;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            20% { background-position: 100% 0%; }
+            40% { background-position: 100% 100%; }
+            60% { background-position: 0% 100%; }
+            80% { background-position: 0% 0%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* Hover effect for container */
@@ -306,22 +375,22 @@
     <div class="container">
         <div class="profile-section">
             <div class="profile-image">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cg%3E%3Crect width='64' height='64' fill='%23ffffff'/%3E%3Crect x='16' y='8' width='32' height='24' fill='%23ffffff'/%3E%3Crect x='8' y='16' width='8' height='8' fill='%23000000'/%3E%3Crect x='48' y='16' width='8' height='8' fill='%23000000'/%3E%3Crect x='24' y='32' width='16' height='8' fill='%23ff6b00'/%3E%3Crect x='20' y='40' width='8' height='8' fill='%23ffaa00'/%3E%3Crect x='36' y='40' width='8' height='8' fill='%23ffaa00'/%3E%3Crect x='16' y='48' width='32' height='8' fill='%23ffaa00'/%3E%3Crect x='24' y='56' width='16' height='8' fill='%23ffaa00'/%3E%3C/g%3E%3C/svg%3E" alt="Chicken Profile" />
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfhCRAOKQwq7Ft+AAABx0lEQVRYw72XPU4CQRSG3wECNhZY0FHQQENJQmJCQmFCYmFBY2FjY2FjY2FjY2FjQmFBQmJjQ0FBQUJCQkFBQUJCQmFBQUJBQUFBQUJBQUFBQUJCQkFBQUJCQkFBQUFBQkJCQkFBQUFBQUJCQkJBQUFBQUJCQkJBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQkJCQkFBQUFBQUJCQkJBQUFBQUJCQkJBQUFBQkJCQkFBQUFBQUJCQkJBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQkJCQkFBQUFBQUJCQkJBQUFBQUJCQkJBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQkJCQkFBQUFBQUJCQkJBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQkJCQkFBQUFBQUJCQkJBQUFBQUJCQkJBQUFBQkJCQkFBQUFBQUJCQkJBQUFBQUJCQkJBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQkJCQkFBQUFBQUJCQkJBQUFBQUJCQkJBQUFBQkJCQkFBQUFBQUJCQkJBQUFBQUJCQkJBQUFBQkJCQkFBQUFBQUJCQkJBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQkJCQkFBQUFBQUJCQkJBQUFBQUJCQkJBQUFBQkJCQkFBQUFBQUJCQkJBQUFBQUJCQkJBQUFBQkJCQkFBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQkJCQkFBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQkJCQkFBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQkJCQkFBQUFBQUJCQkFBQUFBQkJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkJBQUFBQUFCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkFBQUFBQUJCQkJBQUFBQUFCQkFBQUFBQUJCQkFBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQUJCQkJBQUFBQUJCQkFBQUFBQUJCQkJBQUFBQUJDUUlSBUZCQUFBQUJTUkpGQWdRSUEAAQJSUkpGQWdFSUFBRUpTUkpGQWdGSUFBRkpTUkpGQWdKSUFBSkpTUkpGQWdOSUFBTkpTUkpGQWdSSUFBUkpTUkpGQWdUSUFBVEpTUkpGQWdWSUFBVkpTUkpGQWdaSUFBWkpTUkpGQWdkSUFBZEpTUkpGQWdoSUFBaEpTUkpGQWdsSUFBbEpTUkpGQWdwSUFBcEpTUkpGQWdxSUFBcUpTUkpGQWdySUFBckpTUkpGQWdzSUFBc0pTUkpGQWd0SUFBdEpTUkpGQWd1SUFBdUpTUkpGQWd2SUFBdkpTUkpGQWd3SUFBd0pTUkpGQWd4SUFBeEpTUkpGQWd5SUFBeUpTUkpGQWd6SUFBekpTUkpGQWcwSUFBMEpTUkpGQWcxSUFBMUpTUkpGQWc2SUFBNkpTUkpGQWc3SUFBNywKfV0=" alt="Profile" />
             </div>
             <h1 class="username">godtkl</h1>
             <div class="status">
                 <div class="status-dot"></div>
-                Online
+                Vamos crescer juntos
             </div>
         </div>
 
         <div class="buttons-container">
-            <a href="https://www.twitch.tv/godtkl" target="_blank" rel="noopener noreferrer" class="btn btn-twitch">
+            <a href="https://www.twitch.tv/godtkl" target="_blank" rel="noopener noreferrer" class="btn">
                 <span class="btn-icon">📺</span>
                 Minha Twitch
             </a>
             
-            <a href="https://livepix.gg/fineysh" target="_blank" rel="noopener noreferrer" class="btn btn-livepix">
+            <a href="https://livepix.gg/fineysh" target="_blank" rel="noopener noreferrer" class="btn">
                 <span class="btn-icon">💎</span>
                 Live Pix
             </a>
@@ -330,6 +399,11 @@
                 <span class="btn-icon">💬</span>
                 Meu Discord: fineysh
             </div>
+
+            <a href="https://discord.gg/JVYXaZ5kq2" target="_blank" rel="noopener noreferrer" class="btn">
+                <span class="btn-icon">🎮</span>
+                Meu Server do Discord
+            </a>
         </div>
     </div>
 
