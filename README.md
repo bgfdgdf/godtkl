@@ -1,1 +1,382 @@
-# godtkl
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GodTKL - Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2c2f36 0%, #23272a 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        .background-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 70%;
+            right: 20%;
+            animation-delay: 3s;
+        }
+
+        .particle:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            top: 50%;
+            left: 80%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+            25% { transform: translateY(-30px) translateX(20px) rotate(90deg); }
+            50% { transform: translateY(-20px) translateX(-15px) rotate(180deg); }
+            75% { transform: translateY(20px) translateX(10px) rotate(270deg); }
+        }
+
+        .container {
+            background: rgba(54, 57, 63, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+            position: relative;
+            z-index: 1;
+            animation: slideIn 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(60px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .profile-section {
+            margin-bottom: 35px;
+            animation: profileFadeIn 1.5s ease-out 0.4s both;
+        }
+
+        @keyframes profileFadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(45deg, #7289da, #5865f2);
+            padding: 3px;
+            animation: profilePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes profilePulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(114, 137, 218, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(114, 137, 218, 0); }
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #36393f;
+        }
+
+        .username {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .status {
+            color: #b9bbbe;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #43b581;
+            border-radius: 50%;
+            animation: statusBlink 2s infinite;
+            display: none;
+        }
+
+        @keyframes statusBlink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 16px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            animation: buttonSlide 0.8s ease-out;
+            border: 1px solid transparent;
+        }
+
+        .btn:nth-child(1) { animation-delay: 0.6s; animation-fill-mode: both; }
+        .btn:nth-child(2) { animation-delay: 0.8s; animation-fill-mode: both; }
+        .btn:nth-child(3) { animation-delay: 1s; animation-fill-mode: both; }
+
+        @keyframes buttonSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-twitch {
+            background: linear-gradient(135deg, #9146FF, #772CE8, #9146FF, #A855F7);
+            color: white;
+            border: 2px solid rgba(145, 70, 255, 0.4);
+            box-shadow: 0 8px 32px rgba(145, 70, 255, 0.3);
+        }
+
+        .btn-twitch:hover {
+            background-position: right center;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(145, 70, 255, 0.5);
+            border-color: rgba(145, 70, 255, 0.8);
+        }
+
+        .btn-livepix {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53, #FF6B6B, #FF4757);
+            color: white;
+            border: 2px solid rgba(255, 107, 107, 0.4);
+            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-livepix:hover {
+            background-position: right center;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.5);
+            border-color: rgba(255, 107, 107, 0.8);
+        }
+
+        .btn-discord {
+            background: linear-gradient(135deg, #5865F2, #4752C4, #5865F2, #7983F5);
+            color: white;
+            cursor: default;
+            border: 2px solid rgba(88, 101, 242, 0.4);
+            box-shadow: 0 8px 32px rgba(88, 101, 242, 0.3);
+        }
+
+        .btn-discord:hover {
+            background-position: right center;
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 12px 35px rgba(88, 101, 242, 0.5);
+            border-color: rgba(88, 101, 242, 0.8);
+        }
+
+        .btn-icon {
+            font-size: 1.2rem;
+        }
+
+        /* Hover effect for container */
+        .container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+            
+            .username {
+                font-size: 1.6rem;
+            }
+            
+            .btn {
+                padding: 14px 18px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="container">
+        <div class="profile-section">
+            <div class="profile-image">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cg%3E%3Crect width='64' height='64' fill='%23ffffff'/%3E%3Crect x='16' y='8' width='32' height='24' fill='%23ffffff'/%3E%3Crect x='8' y='16' width='8' height='8' fill='%23000000'/%3E%3Crect x='48' y='16' width='8' height='8' fill='%23000000'/%3E%3Crect x='24' y='32' width='16' height='8' fill='%23ff6b00'/%3E%3Crect x='20' y='40' width='8' height='8' fill='%23ffaa00'/%3E%3Crect x='36' y='40' width='8' height='8' fill='%23ffaa00'/%3E%3Crect x='16' y='48' width='32' height='8' fill='%23ffaa00'/%3E%3Crect x='24' y='56' width='16' height='8' fill='%23ffaa00'/%3E%3C/g%3E%3C/svg%3E" alt="Chicken Profile" />
+            </div>
+            <h1 class="username">godtkl</h1>
+            <div class="status">
+                <div class="status-dot"></div>
+                Online
+            </div>
+        </div>
+
+        <div class="buttons-container">
+            <a href="https://www.twitch.tv/godtkl" target="_blank" rel="noopener noreferrer" class="btn btn-twitch">
+                <span class="btn-icon">📺</span>
+                Minha Twitch
+            </a>
+            
+            <a href="https://livepix.gg/fineysh" target="_blank" rel="noopener noreferrer" class="btn btn-livepix">
+                <span class="btn-icon">💎</span>
+                Live Pix
+            </a>
+            
+            <div class="btn btn-discord">
+                <span class="btn-icon">💬</span>
+                Meu Discord: fineysh
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Button click effects
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    if (this.classList.contains('btn-discord')) return;
+                    
+                    // Create click wave effect
+                    const wave = document.createElement('div');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    wave.style.position = 'absolute';
+                    wave.style.width = wave.style.height = size + 'px';
+                    wave.style.left = x + 'px';
+                    wave.style.top = y + 'px';
+                    wave.style.background = 'rgba(255,255,255,0.2)';
+                    wave.style.borderRadius = '50%';
+                    wave.style.transform = 'scale(0)';
+                    wave.style.animation = 'waveEffect 0.8s ease-out';
+                    wave.style.pointerEvents = 'none';
+                    
+                    this.appendChild(wave);
+                    
+                    setTimeout(() => wave.remove(), 800);
+                });
+            });
+            
+            // Add wave animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes waveEffect {
+                    to {
+                        transform: scale(2.5);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
